@@ -1,5 +1,8 @@
+use std::marker;
+
 use rand::Rng;
 use super::bars::Bar;
+
 
 #[derive(Default)]
 pub struct ControlIndex{
@@ -28,4 +31,8 @@ impl Shuffle for Vec<Bar> {
         }
     }
 }
+
+
+
+
 

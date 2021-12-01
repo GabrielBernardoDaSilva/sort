@@ -1,3 +1,5 @@
+use std::thread;
+
 use ggez::{
     event::{self, KeyCode, KeyMods},
     graphics::{self, Color, Rect},
@@ -6,13 +8,17 @@ use ggez::{
 use glam::Vec2;
 use rand::Rng;
 
-use crate::sort::{
-    bubble_sort::{bubble_sort, bubble_sort_visualizer},
-    selection_sort::{selection_sort, selection_sort_bar, selection_sort_visualizer},
+use crate::{
+    sort::{bubble_sort::bubble_sort, selection_sort::selection_sort},
+    BARS,
 };
 
 use super::{
     bars::{self, Bar},
+    sort_bar::{
+        bubble_sort_bar::bubble_sort_bar, quick_sort_bar::quick_sort_bar,
+        selection_sort_bar::selection_sort_bar,
+    },
     util::{self, ControlIndex, Shuffle},
 };
 
@@ -21,9 +27,7 @@ pub struct MainState {
     pub bars: Vec<Bar>,
     pub trigger_shuffle: bool,
     pub trigger_sort: bool,
-    pub center_height: f32,
-    pub center_width: f32,
-    pub min: usize
+    pub min: usize,
 }
 
 impl MainState {
@@ -33,9 +37,7 @@ impl MainState {
             trigger_shuffle: false,
             trigger_sort: false,
             bars,
-            center_width: 1920.0 / 2.0,
-            center_height: 1080.0 / 2.0,
-            min: 0
+            min: 0,
         })
     }
 }
@@ -48,9 +50,20 @@ impl event::EventHandler<ggez::GameError> for MainState {
             self.trigger_sort = false;
             self.control_index.j = 0;
             self.control_index.i = 0;
+
+            unsafe {
+                BARS.shuffle();
+            }
         }
         if self.trigger_sort {
-            selection_sort_visualizer(self);           
+            unsafe {
+                let len = BARS.len() - 1;
+                thread::spawn(move || {
+                    bubble_sort_bar(&mut BARS, |a, b| a > b);
+                });
+
+                self.trigger_sort = false;
+            }
         }
 
         Ok(())
@@ -58,19 +71,20 @@ impl event::EventHandler<ggez::GameError> for MainState {
 
     fn draw(&mut self, ctx: &mut Context) -> GameResult {
         graphics::clear(ctx, [0.0, 0.0, 0.0, 1.0].into());
+        unsafe {
+            for bar in &BARS {
+                let rectangle_mesh = graphics::Mesh::new_rectangle(
+                    ctx,
+                    graphics::DrawMode::fill(),
+                    Rect::new(0.0, 0.0, bar.width, bar.height),
+                    bar.color,
+                )?;
 
-        for bar in &self.bars {
-            let rectangle_mesh = graphics::Mesh::new_rectangle(
-                ctx,
-                graphics::DrawMode::fill(),
-                Rect::new(0.0, 0.0, bar.width, bar.height),
-                bar.color,
-            )?;
+                graphics::draw(ctx, &rectangle_mesh, (Vec2::new(bar.pos_x, bar.pos_y),))?;
+            }
 
-            graphics::draw(ctx, &rectangle_mesh, (Vec2::new(bar.pos_x, bar.pos_y),))?;
+            graphics::present(ctx)?;
         }
-
-        graphics::present(ctx)?;
         Ok(())
     }
 
@@ -89,7 +103,7 @@ impl event::EventHandler<ggez::GameError> for MainState {
             self.trigger_sort = true;
         }
 
-        if keycode == KeyCode::Escape{
+        if keycode == KeyCode::Escape {
             event::quit(ctx);
         }
     }

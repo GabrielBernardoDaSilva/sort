@@ -4,14 +4,21 @@
 #![allow(unused_assignments)]
 #![allow(unused_imports)]
 
+use std::thread;
+use std::time;
+
 use ggez::{conf, event, GameResult};
 use graphic_for_sort::{bars::Bar, main_state::MainState};
 use rand::{prelude::SliceRandom, Rng};
 
-use crate::sort::{bubble_sort::bubble_sort, selection_sort::selection_sort};
+use crate::sort::{
+    bubble_sort::bubble_sort, quick_sort::quick_sort, selection_sort::selection_sort,
+};
 
 mod graphic_for_sort;
 mod sort;
+
+static mut BARS: Vec<Bar> = Vec::new();
 
 fn create_bars() -> Vec<Bar> {
     let mut bars = Vec::new();
@@ -85,15 +92,25 @@ fn main() -> GameResult {
             resize_on_scale_factor_change: true,
         });
     let (ctx, event_loop) = cb.build()?;
-
+    unsafe {
+        BARS = create_bars();
+    }
     let state = MainState::new(create_bars())?;
+
     event::run(ctx, event_loop, state)
 }
 
 // fn main() {
-//     let mut v = vec![6, 1, 2, 4, 5, 3, 0];
-//     println!("{:?}", v);
+//     thread::spawn(|| {
+//         for i in 1..10 {
+//             println!("hi number {} from the spawned thread!", i);
+//             thread::sleep(time::Duration::from_millis(1));
+//         }
+//     });
 
-//     selection_sort(&mut v, |a, b| -> bool { a < b });
-//     println!("{:?}", v);
+//     for i in 1..5 {
+//         println!("hi number {} from the main thread!", i);
+//         thread::sleep(time::Duration::from_millis(1));
+//     }
+
 // }
