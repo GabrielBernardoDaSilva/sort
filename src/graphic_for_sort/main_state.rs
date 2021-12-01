@@ -6,7 +6,10 @@ use ggez::{
 use glam::Vec2;
 use rand::Rng;
 
-use crate::sort::bubble_sort::{bubble_sort, bubble_sort_visualizer};
+use crate::sort::{
+    bubble_sort::{bubble_sort, bubble_sort_visualizer},
+    selection_sort::{selection_sort, selection_sort_bar, selection_sort_visualizer},
+};
 
 use super::{
     bars::{self, Bar},
@@ -20,6 +23,7 @@ pub struct MainState {
     pub trigger_sort: bool,
     pub center_height: f32,
     pub center_width: f32,
+    pub min: usize
 }
 
 impl MainState {
@@ -31,6 +35,7 @@ impl MainState {
             bars,
             center_width: 1920.0 / 2.0,
             center_height: 1080.0 / 2.0,
+            min: 0
         })
     }
 }
@@ -45,8 +50,7 @@ impl event::EventHandler<ggez::GameError> for MainState {
             self.control_index.i = 0;
         }
         if self.trigger_sort {
-            // bubble_sort(&mut self.bars, |a, b| -> bool { a > b });
-            bubble_sort_visualizer(self);
+            selection_sort_visualizer(self);           
         }
 
         Ok(())
@@ -72,7 +76,7 @@ impl event::EventHandler<ggez::GameError> for MainState {
 
     fn key_down_event(
         &mut self,
-        _ctx: &mut Context,
+        ctx: &mut Context,
         keycode: KeyCode,
         keymod: KeyMods,
         repeat: bool,
@@ -83,6 +87,10 @@ impl event::EventHandler<ggez::GameError> for MainState {
 
         if keycode == KeyCode::E {
             self.trigger_sort = true;
+        }
+
+        if keycode == KeyCode::Escape{
+            event::quit(ctx);
         }
     }
 }

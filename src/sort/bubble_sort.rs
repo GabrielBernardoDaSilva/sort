@@ -1,6 +1,21 @@
 use crate::graphic_for_sort::{bars::Bar, main_state::MainState, util};
 
-pub fn bubble_sort(arr: &mut Vec<Bar>, compare: fn(Bar, Bar) -> bool) {
+pub fn bubble_sort<T>(arr: &mut Vec<T>, compare: fn(T, T) -> bool)
+where
+    T: Copy,
+{
+    for i in 0..arr.len() {
+        for j in i + 1..arr.len() {
+            if compare(arr[j], arr[i]) {
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+
+pub fn bubble_sort_bar(arr: &mut Vec<Bar>, compare: fn(Bar, Bar) -> bool) {
     for i in 0..arr.len() {
         for j in i + 1..arr.len() {
             if compare(arr[i], arr[j]) {
@@ -24,6 +39,7 @@ pub fn bubble_sort_visualizer(main_state: &mut MainState) {
             {
                 let temp_i = main_state.bars[main_state.control_index.i];
                 let temp_j = main_state.bars[main_state.control_index.j];
+
                 main_state.bars[main_state.control_index.i] =
                     main_state.bars[main_state.control_index.j];
                 main_state.bars[main_state.control_index.i].pos_x = temp_i.pos_x;

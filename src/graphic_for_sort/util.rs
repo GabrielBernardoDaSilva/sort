@@ -11,6 +11,8 @@ pub trait Shuffle {
     fn shuffle(&mut self);
 }
 
+
+
 impl Shuffle for Vec<Bar> {
     fn shuffle(&mut self) {
         let mut rng = rand::thread_rng();

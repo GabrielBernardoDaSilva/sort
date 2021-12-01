@@ -8,6 +8,8 @@ use ggez::{conf, event, GameResult};
 use graphic_for_sort::{bars::Bar, main_state::MainState};
 use rand::{prelude::SliceRandom, Rng};
 
+use crate::sort::{bubble_sort::bubble_sort, selection_sort::selection_sort};
+
 mod graphic_for_sort;
 mod sort;
 
@@ -87,3 +89,11 @@ fn main() -> GameResult {
     let state = MainState::new(create_bars())?;
     event::run(ctx, event_loop, state)
 }
+
+// fn main() {
+//     let mut v = vec![6, 1, 2, 4, 5, 3, 0];
+//     println!("{:?}", v);
+
+//     selection_sort(&mut v, |a, b| -> bool { a < b });
+//     println!("{:?}", v);
+// }
