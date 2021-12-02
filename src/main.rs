@@ -11,6 +11,7 @@ use ggez::{conf, event, GameResult};
 use graphic_for_sort::{bars::Bar, main_state::MainState};
 use rand::{prelude::SliceRandom, Rng};
 
+use crate::sort::heapsort::heapsort;
 use crate::sort::{
     bubble_sort::bubble_sort, quick_sort::quick_sort, selection_sort::selection_sort,
 };
@@ -74,43 +75,38 @@ fn create_bars() -> Vec<Bar> {
     bars
 }
 
-fn main() -> GameResult {
-    let cb = ggez::ContextBuilder::new("sort_2d_visualiazer", "gabriel")
-        .window_setup(ggez::conf::WindowSetup::default().title("Sort Visualizer"))
-        .window_mode(conf::WindowMode {
-            width: 1920.0,
-            height: 1080.0,
-            maximized: true,
-            fullscreen_type: conf::FullscreenType::Windowed,
-            borderless: false,
-            min_width: 720.0,
-            min_height: 460.0,
-            max_width: 1920.0,
-            max_height: 1080.0,
-            resizable: true,
-            visible: true,
-            resize_on_scale_factor_change: true,
-        });
-    let (ctx, event_loop) = cb.build()?;
-    unsafe {
-        BARS = create_bars();
-    }
-    let state = MainState::new(create_bars())?;
-
-    event::run(ctx, event_loop, state)
-}
-
-// fn main() {
-//     thread::spawn(|| {
-//         for i in 1..10 {
-//             println!("hi number {} from the spawned thread!", i);
-//             thread::sleep(time::Duration::from_millis(1));
-//         }
-//     });
-
-//     for i in 1..5 {
-//         println!("hi number {} from the main thread!", i);
-//         thread::sleep(time::Duration::from_millis(1));
+// fn main() -> GameResult {
+//     let cb = ggez::ContextBuilder::new("sort_2d_visualiazer", "gabriel")
+//         .window_setup(ggez::conf::WindowSetup::default().title("Sort Visualizer"))
+//         .window_mode(conf::WindowMode {
+//             width: 1920.0,
+//             height: 1080.0,
+//             maximized: true,
+//             fullscreen_type: conf::FullscreenType::Windowed,
+//             borderless: false,
+//             min_width: 720.0,
+//             min_height: 460.0,
+//             max_width: 1920.0,
+//             max_height: 1080.0,
+//             resizable: true,
+//             visible: true,
+//             resize_on_scale_factor_change: true,
+//         });
+//     let (ctx, event_loop) = cb.build()?;
+//     unsafe {
+//         BARS = create_bars();
 //     }
+//     let state = MainState::new(create_bars())?;
 
+//     event::run(ctx, event_loop, state)
 // }
+
+fn compare(a: i32, b: i32) -> bool { a < b}
+
+fn main() {
+    let mut vec = vec![6, 4, 5, 3, 1, 0, 2];
+    println!("{:?}", &vec);
+    let len = vec.len() - 1;
+    quick_sort(&mut vec, 0, len, compare);
+    println!("{:?}", &vec);
+}

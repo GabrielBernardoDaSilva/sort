@@ -2,6 +2,8 @@ use std::thread;
 
 use crate::graphic_for_sort::{bars::Bar, main_state::MainState};
 
+use super::swap_arr_bar;
+
 pub fn quick_sort_bar(arr: &mut Vec<Bar>, start: usize, end: usize) {
    
     if start >= end {
@@ -33,13 +35,3 @@ fn partion_bar(arr: &mut Vec<Bar>, start: usize, end: usize) -> i64 {
     index as i64
 }
 
-fn swap_arr_bar(arr: &mut Vec<Bar>, i: usize, j: usize) {
-    let temp_i = arr[i];
-    let temp_j = arr[j];
-
-    arr[i] = temp_j;
-    arr[i].pos_x = temp_i.pos_x;
-
-    arr[j] = temp_i;
-    arr[j].pos_x = temp_j.pos_x;
-}

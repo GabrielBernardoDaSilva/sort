@@ -16,7 +16,7 @@ use crate::{
 use super::{
     bars::{self, Bar},
     sort_bar::{
-        bubble_sort_bar::bubble_sort_bar, quick_sort_bar::quick_sort_bar,
+        bubble_sort_bar::bubble_sort_bar, heapsort_bar, quick_sort_bar::quick_sort_bar,
         selection_sort_bar::selection_sort_bar,
     },
     util::{self, ControlIndex, Shuffle},
@@ -57,11 +57,9 @@ impl event::EventHandler<ggez::GameError> for MainState {
         }
         if self.trigger_sort {
             unsafe {
-                let len = BARS.len() - 1;
                 thread::spawn(move || {
-                    bubble_sort_bar(&mut BARS, |a, b| a > b);
+                    selection_sort_bar(&mut BARS);
                 });
-
                 self.trigger_sort = false;
             }
         }
