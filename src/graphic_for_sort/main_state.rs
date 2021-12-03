@@ -9,15 +9,15 @@ use glam::Vec2;
 use rand::Rng;
 
 use crate::{
-    sort::{bubble_sort::bubble_sort, selection_sort::selection_sort},
+    sort::{bubble_sort::bubble_sort, merge_sort, selection_sort::selection_sort},
     BARS,
 };
 
 use super::{
     bars::{self, Bar},
     sort_bar::{
-        bubble_sort_bar::bubble_sort_bar, heapsort_bar, quick_sort_bar::quick_sort_bar,
-        selection_sort_bar::selection_sort_bar,
+        bubble_sort_bar::bubble_sort_bar, heapsort_bar, merge_sort_bar,
+        quick_sort_bar::quick_sort_bar, selection_sort_bar::selection_sort_bar,
     },
     util::{self, ControlIndex, Shuffle},
 };
@@ -58,7 +58,7 @@ impl event::EventHandler<ggez::GameError> for MainState {
         if self.trigger_sort {
             unsafe {
                 thread::spawn(move || {
-                    selection_sort_bar(&mut BARS);
+                    merge_sort_bar::sort(&mut BARS);
                 });
                 self.trigger_sort = false;
             }
