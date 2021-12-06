@@ -1,30 +1,39 @@
 use std::fmt::Debug;
 
-pub fn sort(arr: &mut Vec<i32>) {
+pub fn sort<T>(arr: &mut Vec<T>, compare: fn(T, T) -> bool)
+where
+    T: Copy + Clone,
+{
     let begin: usize = 0;
     let end: usize = arr.len() - 1;
-    mergesort(arr, begin, end);
+    mergesort(arr, begin, end, compare);
 }
 
-fn mergesort(arr: &mut Vec<i32>, begin: usize, end: usize) {
+fn mergesort<T>(arr: &mut Vec<T>, begin: usize, end: usize, compare: fn(T, T) -> bool)
+where
+    T: Copy + Clone,
+{
     if begin < end {
         let middle: usize = (end + begin) / 2;
 
-        mergesort(arr, begin, middle);
-        mergesort(arr, middle + 1, end);
-        merge(arr, begin, middle, end);
+        mergesort(arr, begin, middle, compare);
+        mergesort(arr, middle + 1, end, compare);
+        merge(arr, begin, middle, end, compare);
     }
 }
 
-fn merge(arr: &mut Vec<i32>, begin: usize, middle: usize, end: usize) {
+fn merge<T>(arr: &mut Vec<T>, begin: usize, middle: usize, end: usize, compare: fn(T, T) -> bool)
+where
+    T: Copy + Clone,
+{
     let mut init1 = begin;
     let mut init2 = middle + 1;
     let mut size = end - begin + 1;
 
-    let mut aux_arr = Vec::<i32>::new();
+    let mut aux_arr = Vec::<T>::new();
 
     while init1 <= middle && init2 <= end {
-        if arr[init1] < arr[init2] {
+        if compare(arr[init1], arr[init2]) {
             aux_arr.push(arr[init1]);
             init1 += 1;
         } else {

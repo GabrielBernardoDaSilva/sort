@@ -10,9 +10,11 @@ use std::time;
 use ggez::{conf, event, GameResult};
 use graphic_for_sort::{bars::Bar, main_state::MainState};
 use rand::{prelude::SliceRandom, Rng};
+use sort::radix_sort::RadixSort;
 
 use crate::sort::heapsort::heapsort;
 use crate::sort::merge_sort;
+use crate::sort::radix_sort::radix_sort;
 use crate::sort::{
     bubble_sort::bubble_sort, quick_sort::quick_sort, selection_sort::selection_sort,
 };
@@ -105,10 +107,15 @@ fn main() -> GameResult {
 // fn compare(a: i32, b: i32) -> bool {
 //     a < b
 // }
+// impl RadixSort for i32 {
+//     fn get_identifier(&self) -> i32 {
+//         *self
+//     }
+// }
 
 // fn main() {
 //     let mut vec = vec![6, 4, 2, 3, 0, 1, 5];
 //     println!("{:?}", &vec);
-//     merge_sort::sort(&mut vec);
+//     radix_sort(&mut vec);
 //     println!("{:?}", &vec);
 // }

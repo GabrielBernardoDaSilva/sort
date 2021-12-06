@@ -17,7 +17,8 @@ use super::{
     bars::{self, Bar},
     sort_bar::{
         bubble_sort_bar::bubble_sort_bar, heapsort_bar, merge_sort_bar,
-        quick_sort_bar::quick_sort_bar, selection_sort_bar::selection_sort_bar,
+        quick_sort_bar::quick_sort_bar, radix_sort_bar::radix_sort_bar,
+        selection_sort_bar::selection_sort_bar,
     },
     util::{self, ControlIndex, Shuffle},
 };
@@ -58,7 +59,7 @@ impl event::EventHandler<ggez::GameError> for MainState {
         if self.trigger_sort {
             unsafe {
                 thread::spawn(move || {
-                    merge_sort_bar::sort(&mut BARS);
+                    radix_sort_bar(&mut BARS);
                 });
                 self.trigger_sort = false;
             }

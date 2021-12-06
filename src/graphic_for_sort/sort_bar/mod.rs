@@ -5,6 +5,7 @@ pub mod bubble_sort_bar;
 pub mod selection_sort_bar;
 pub mod heapsort_bar;
 pub mod merge_sort_bar;
+pub mod radix_sort_bar;
 
 pub fn swap_arr_bar(arr: &mut Vec<Bar>, i: usize, j: usize) {
     let temp_i = arr[i];
