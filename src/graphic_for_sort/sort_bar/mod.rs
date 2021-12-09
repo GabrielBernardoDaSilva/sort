@@ -7,6 +7,7 @@ pub mod heapsort_bar;
 pub mod merge_sort_bar;
 pub mod radix_sort_bar;
 pub mod insertion_sort_bar;
+pub mod cocktail_shaker_sort_bar;
 
 pub fn swap_arr_bar(arr: &mut Vec<Bar>, i: usize, j: usize) {
     let temp_i = arr[i];

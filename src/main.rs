@@ -12,6 +12,7 @@ use graphic_for_sort::{bars::Bar, main_state::MainState};
 use rand::{prelude::SliceRandom, Rng};
 use sort::radix_sort::RadixSort;
 
+use crate::sort::cocktail_shaker_sort;
 use crate::sort::heapsort::heapsort;
 use crate::sort::insertion_sort::insertion_sort;
 use crate::sort::merge_sort;
@@ -117,6 +118,6 @@ fn main() -> GameResult {
 // fn main() {
 //     let mut vec = vec![6, 4, 2, 3, 0, 1, 5];
 //     println!("{:?}", &vec);
-//     insertion_sort(&mut vec, |a, b| a < b);
+//     cocktail_shaker_sort(&mut vec);
 //     println!("{:?}", &vec);
 // }
