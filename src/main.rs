@@ -13,6 +13,7 @@ use rand::{prelude::SliceRandom, Rng};
 use sort::radix_sort::RadixSort;
 
 use crate::sort::heapsort::heapsort;
+use crate::sort::insertion_sort::insertion_sort;
 use crate::sort::merge_sort;
 use crate::sort::radix_sort::radix_sort;
 use crate::sort::{
@@ -61,7 +62,7 @@ fn create_bars() -> Vec<Bar> {
         } else if i > 52 && i < 65 {
             g += 0.076;
         } else if i == 65 {
-            g = 1.0;
+            g = 0.95;
         }
 
         bars.push(Bar::new(
@@ -116,6 +117,6 @@ fn main() -> GameResult {
 // fn main() {
 //     let mut vec = vec![6, 4, 2, 3, 0, 1, 5];
 //     println!("{:?}", &vec);
-//     radix_sort(&mut vec);
+//     insertion_sort(&mut vec, |a, b| a < b);
 //     println!("{:?}", &vec);
 // }

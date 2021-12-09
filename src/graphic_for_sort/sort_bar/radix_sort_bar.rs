@@ -23,5 +23,5 @@ pub fn radix_sort_bar(arr: &mut Vec<Bar>) {
         }
         exp *= len as i32;
     }
-    println!("arr 2:{:?}", &arr2);
+    
 }
