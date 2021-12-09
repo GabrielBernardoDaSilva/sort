@@ -10,9 +10,12 @@ use std::time;
 use ggez::{conf, event, GameResult};
 use graphic_for_sort::{bars::Bar, main_state::MainState};
 use rand::{prelude::SliceRandom, Rng};
+
+use sort::GravitySort;
 use sort::radix_sort::RadixSort;
 
 use crate::sort::cocktail_shaker_sort;
+use crate::sort::gravity_sort;
 use crate::sort::heapsort::heapsort;
 use crate::sort::insertion_sort::insertion_sort;
 use crate::sort::merge_sort;
@@ -80,31 +83,31 @@ fn create_bars() -> Vec<Bar> {
     bars
 }
 
-fn main() -> GameResult {
-    let cb = ggez::ContextBuilder::new("sort_2d_visualiazer", "gabriel")
-        .window_setup(ggez::conf::WindowSetup::default().title("Sort Visualizer"))
-        .window_mode(conf::WindowMode {
-            width: 1920.0,
-            height: 1080.0,
-            maximized: true,
-            fullscreen_type: conf::FullscreenType::Windowed,
-            borderless: false,
-            min_width: 720.0,
-            min_height: 460.0,
-            max_width: 1920.0,
-            max_height: 1080.0,
-            resizable: true,
-            visible: true,
-            resize_on_scale_factor_change: true,
-        });
-    let (ctx, event_loop) = cb.build()?;
-    unsafe {
-        BARS = create_bars();
-    }
-    let state = MainState::new(create_bars())?;
+// fn main() -> GameResult {
+//     let cb = ggez::ContextBuilder::new("sort_2d_visualiazer", "gabriel")
+//         .window_setup(ggez::conf::WindowSetup::default().title("Sort Visualizer"))
+//         .window_mode(conf::WindowMode {
+//             width: 1920.0,
+//             height: 1080.0,
+//             maximized: true,
+//             fullscreen_type: conf::FullscreenType::Windowed,
+//             borderless: false,
+//             min_width: 720.0,
+//             min_height: 460.0,
+//             max_width: 1920.0,
+//             max_height: 1080.0,
+//             resizable: true,
+//             visible: true,
+//             resize_on_scale_factor_change: true,
+//         });
+//     let (ctx, event_loop) = cb.build()?;
+//     unsafe {
+//         BARS = create_bars();
+//     }
+//     let state = MainState::new(create_bars())?;
 
-    event::run(ctx, event_loop, state)
-}
+//     event::run(ctx, event_loop, state)
+// }
 
 // fn compare(a: i32, b: i32) -> bool {
 //     a < b
@@ -115,9 +118,15 @@ fn main() -> GameResult {
 //     }
 // }
 
-// fn main() {
-//     let mut vec = vec![6, 4, 2, 3, 0, 1, 5];
-//     println!("{:?}", &vec);
-//     cocktail_shaker_sort(&mut vec);
-//     println!("{:?}", &vec);
-// }
+impl GravitySort for i32{
+    fn get_identifier(&self) -> i32 {
+        *self
+    }
+}
+
+fn main() {
+    let mut vec = vec![6, 4, 2, 3, 0, 1, 5];
+    println!("{:?}", &vec);
+    gravity_sort(&mut vec);
+    println!("{:?}", &vec);
+}
