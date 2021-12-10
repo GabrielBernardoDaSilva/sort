@@ -1,16 +1,14 @@
-pub trait GravitySort {
-    fn get_identifier(&self) -> i32;
-}
+use super::SortAlgorithms;
 
 pub fn gravity_sort<T>(arr: &mut Vec<T>) 
-    where T: Copy + Clone + GravitySort{
-    let mut max = arr.iter().max_by_key(|a| a.get_identifier()).unwrap().get_identifier();
+    where T: Copy + Clone + SortAlgorithms{
+    let mut max = arr.iter().max_by_key(|a| a.get_key()).unwrap().get_key();
     let len = arr.len();
     let mut beads = vec![0; max as usize * len];
     let mut arr2 = arr.clone();
 
     for i in 0..len {
-        for j in 0..arr[i].get_identifier() as usize {
+        for j in 0..arr[i].get_key() as usize {
             beads[i * (max as usize) + j] = 1;
         }
     }
@@ -34,6 +32,6 @@ pub fn gravity_sort<T>(arr: &mut Vec<T>)
             j += 1;
         }
         // important increasse time here for work with any type that could be indexed
-        arr[i] = *arr2.iter().find(|a| a.get_identifier() == j as i32).unwrap();
+        arr[i] = *arr2.iter().find(|a| a.get_key() == j as i32).unwrap();
     }
 }

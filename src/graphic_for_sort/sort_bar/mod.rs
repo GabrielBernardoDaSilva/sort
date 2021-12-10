@@ -10,6 +10,7 @@ pub mod insertion_sort_bar;
 pub mod cocktail_shaker_sort_bar;
 pub mod gravity_sort_bar;
 pub mod couting_sort_bar;
+pub mod flash_sort_bar;
 
 pub fn swap_arr_bar(arr: &mut Vec<Bar>, i: usize, j: usize) {
     let temp_i = arr[i];

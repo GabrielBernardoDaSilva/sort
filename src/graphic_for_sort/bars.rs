@@ -1,4 +1,4 @@
-use crate::sort::radix_sort::RadixSort;
+use crate::sort::SortAlgorithms;
 
 #[derive(Clone, Copy, Debug)]
 pub struct Bar {
@@ -34,8 +34,8 @@ impl PartialEq for Bar {
         self.id == other.id
     }
 }
-impl RadixSort for Bar {
-    fn get_identifier(&self) -> i32 {
+impl SortAlgorithms for Bar {
+    fn get_key(&self) -> i32 {
         self.id
     }
 }
