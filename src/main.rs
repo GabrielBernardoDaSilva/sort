@@ -11,10 +11,12 @@ use ggez::{conf, event, GameResult};
 use graphic_for_sort::{bars::Bar, main_state::MainState};
 use rand::{prelude::SliceRandom, Rng};
 
+use sort::CoutingSort;
 use sort::GravitySort;
 use sort::radix_sort::RadixSort;
 
 use crate::sort::cocktail_shaker_sort;
+use crate::sort::counting_sort;
 use crate::sort::gravity_sort;
 use crate::sort::heapsort::heapsort;
 use crate::sort::insertion_sort::insertion_sort;
@@ -124,9 +126,15 @@ fn main() -> GameResult {
 //     }
 // }
 
+// impl CoutingSort for i32 {
+//     fn get_identifier(&self) -> i32 {
+//         *self
+//     }
+// }
+
 // fn main() {
 //     let mut vec = vec![6, 4, 2, 3, 0, 1, 5];
 //     println!("{:?}", &vec);
-//     gravity_sort(&mut vec);
+//     counting_sort(&mut vec);
 //     println!("{:?}", &vec);
 // }
