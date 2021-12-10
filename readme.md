@@ -77,7 +77,7 @@
 
 <div>
     <h3>GRAVITY SORT / BEAD SORT</h3>
-    <p> Gravity Sort is an algorithm that use the strategy of <i>Natural Sorting<i><p>
+    <p> Gravity Sort is an algorithm that use the strategy of <i>Natural Sorting</i><p>
     <p>Worst, Medium and Best Case Complexity: <strong>O(n)</strong>
     <p><a href="https://en.wikipedia.org/wiki/Bead_sort">https://en.wikipedia.org/wiki/Bead_sort</a></p>
 </div>
