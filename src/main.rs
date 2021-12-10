@@ -11,7 +11,6 @@ use ggez::{conf, event, GameResult};
 use graphic_for_sort::{bars::Bar, main_state::MainState};
 use rand::{prelude::SliceRandom, Rng};
 
-use sort::SortAlgorithms;
 
 use crate::sort::cocktail_shaker_sort;
 use crate::sort::counting_sort;

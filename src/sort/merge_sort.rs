@@ -1,6 +1,29 @@
-use std::fmt::Debug;
+#[cfg(test)]
+mod merge_sort_test {
 
-pub fn sort<T>(arr: &mut Vec<T>, compare: fn(T, T) -> bool)
+    #[test]
+    fn sort() {
+        let mut arr = vec![7, 6, 5, 2, 4, 3, 1, 0, -1];
+        super::merge_sort(&mut arr, |a, b| a < b);
+        assert_eq!(arr, [-1, 0, 1, 2, 3, 4, 5, 6, 7]);
+    }
+}
+
+/**
+Merge sort is an algorithm that use the strategy order by comparation and divide to conquer.
+# Examples
+
+```
+extern crate sort_algorithms;
+use sort_algorithms::merge_sort;
+
+let mut arr = vec![7, 6, 5, 2, 4, 3, 1, 0];
+merge_sort(&mut arr, |a, b| a < b);
+assert_eq!(arr, [0, 1, 2, 3, 4, 5, 6, 7]);
+```
+*/
+
+pub fn merge_sort<T>(arr: &mut Vec<T>, compare: fn(T, T) -> bool)
 where
     T: Copy + Clone,
 {
@@ -28,7 +51,6 @@ where
 {
     let mut init1 = begin;
     let mut init2 = middle + 1;
-    let mut size = end - begin + 1;
 
     let mut aux_arr = Vec::<T>::new();
 

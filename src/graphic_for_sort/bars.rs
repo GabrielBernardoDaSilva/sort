@@ -1,5 +1,3 @@
-use crate::sort::SortAlgorithms;
-
 #[derive(Clone, Copy, Debug)]
 pub struct Bar {
     pub id: i32,
@@ -32,10 +30,5 @@ impl PartialOrd for Bar {
 impl PartialEq for Bar {
     fn eq(&self, other: &Self) -> bool {
         self.id == other.id
-    }
-}
-impl SortAlgorithms for Bar {
-    fn get_key(&self) -> i32 {
-        self.id
     }
 }
