@@ -11,7 +11,6 @@ mod selection_sort_test {
 
 /**
 Selection Sort is an algorithm that use order by selection.
-!important only positive keys
 # Examples
 
 ```
